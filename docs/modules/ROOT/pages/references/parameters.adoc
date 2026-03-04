@@ -21,7 +21,26 @@ The Helm release name used for the Renovate deployment.
 By default, the Commodore meta-parameter `parameters._instance` is used. `parameters._instance` is set to the aliased name used for instantiation or the component name for non-aliased instances.
 
 
-== `charts.renovate`
+== `images`
+
+[horizontal]
+type:: dictionary
+default:: `{}`
+
+Optional container image configuration.
+This component intentionally doesn't pin a default Renovate image tag because Renovate releases very frequently.
+Set the image tag explicitly in your cluster configuration via `helm_values.image.tag`.
+
+
+== `charts`
+
+[horizontal]
+type:: dictionary
+
+Dictionary containing the chart versions used by this component.
+
+
+== `charts.renovate.version`
 
 [horizontal]
 type:: string
@@ -30,17 +49,20 @@ default:: See https://github.com/projectsyn/component-renovate/blob/master/class
 The Helm chart version used for this component.
 
 
+== `charts.renovate.source`
+
+[horizontal]
+type:: string
+default:: See https://github.com/projectsyn/component-renovate/blob/master/class/defaults.yml[class/defaults.yml]
+
+The Helm chart source repository used by this component.
+
+
 == `helm_values`
 
 [horizontal]
 type:: dict
-default::
-+
-[source,yaml]
-----
-cronjob:
-  suspend: true
-----
+default:: `{}`
 
 All `helm_values` are passed to the Renovate Helm chart.
 The component doesn't ship a default Renovate bot configuration.

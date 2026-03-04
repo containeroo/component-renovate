@@ -1,42 +1,22 @@
 {
-  "extends": [
-    "config:base",
-    ":gitSignOff",
-    ":disableDependencyDashboard"
-  ],
-  "ignorePaths": [
-    ".github/**"
-  ],
-  "labels": [
-    "dependency"
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "ignorePaths": [".github/**"],
+  "labels": ["dependency"],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "Renovate Helm chart version pinned in class/defaults.yml",
+      "managerFilePatterns": ["/^class\\/defaults\\.yml$/"],
+      "matchStrings": [
+        "renovate:\\s*\\n(?:[^\\n]*\\n)*?\\s*charts:\\s*\\n(?:[^\\n]*\\n)*?\\s*renovate:\\s*\\n(?:[^\\n]*\\n)*?\\s*version:\\s*(?<currentValue>\\d+\\.\\d+\\.\\d+)\\s*\\n"
+      ],
+      "depNameTemplate": "renovate",
+      "datasourceTemplate": "helm",
+      "registryUrlTemplate": "https://renovatebot.github.io/helm-charts",
+      "versioningTemplate": "semver"
+    }
   ],
   "separateMinorPatch": true,
-  "postUpgradeTasks": {
-    "commands": [
-      "make gen-golden-all"
-    ],
-    "fileFilters": [
-      "tests/golden/**"
-    ],
-    "executionMode": "update"
-  },
-  "suppressNotifications": [
-    "artifactErrors"
-  ],
-  "packageRules": [
-    {
-      "matchUpdateTypes": [
-        "patch",
-        "digest"
-      ],
-      "matchCurrentVersion": "!/^v?0\\./",
-      "automerge": true,
-      "platformAutomerge": false,
-      "labels": [
-        "dependency",
-        "automerge",
-        "bump:patch"
-      ]
-    }
-  ]
+  "suppressNotifications": ["artifactErrors"]
 }

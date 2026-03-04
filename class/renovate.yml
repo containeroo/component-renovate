@@ -3,8 +3,8 @@ parameters:
   kapitan:
     dependencies:
       - type: helm
-        source: oci://ghcr.io/renovatebot/charts/renovate
-        version: ${renovate:charts:renovate}
+        source: ${renovate:charts:renovate:source}
+        version: ${renovate:charts:renovate:version}
         chart_name: renovate
         output_path: dependencies/renovate/helmcharts/renovate
     compile:

@@ -6,8 +6,8 @@ parameters:
       multi_tenant: true
     namespace: syn-renovate
     release_name: ${_instance}
-    helm_values:
-      cronjob:
-        suspend: true
+    images: {}
     charts:
-      renovate: 46.49.1
+      renovate:
+        source: oci://ghcr.io/renovatebot/charts/renovate
+        version: 46.49.1

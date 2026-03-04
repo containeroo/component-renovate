@@ -1,0 +1,5 @@
+= renovate
+
+renovate is a Commodore component to manage renovate.
+
+See the xref:references/parameters.adoc[parameters] reference for further details.

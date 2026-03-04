@@ -1,0 +1,5 @@
+parameters:
+  renovate:
+    =_metadata:
+      multi_tenant: true
+    namespace: syn-renovate

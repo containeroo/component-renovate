@@ -1,0 +1,35 @@
+---
+name: Renovate Golden
+on:
+  pull_request:
+    branches:
+      - master
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+permissions:
+  contents: write
+
+jobs:
+  refresh-golden:
+    if: github.actor == 'renovate[bot]' && startsWith(github.head_ref, 'renovate/')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+      - name: Regenerate golden files
+        run: make gen-golden-all
+      - name: Commit golden updates
+        run: |
+          if git diff --quiet -- tests/golden; then
+            echo "No golden changes to commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add tests/golden
+          git commit -m "chore(renovate): refresh golden files"
+          git push

@@ -10,4 +10,4 @@ parameters:
     charts:
       renovate:
         source: oci://ghcr.io/renovatebot/charts/renovate
-        version: 46.49.1
+        version: 46.50.0

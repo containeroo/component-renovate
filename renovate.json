@@ -35,13 +35,13 @@
     {
       "matchUpdateTypes": ["patch", "digest", "pin"],
       "automerge": true,
-      "platformAutomerge": false,
+      "platformAutomerge": true,
       "labels": ["dependency", "bump:patch"]
     },
     {
       "matchUpdateTypes": ["minor"],
       "automerge": true,
-      "platformAutomerge": false,
+      "platformAutomerge": true,
       "labels": ["dependency", "bump:minor"]
     },
     {

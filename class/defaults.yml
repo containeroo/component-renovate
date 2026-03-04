@@ -6,8 +6,17 @@ parameters:
       multi_tenant: true
     namespace: syn-renovate
     release_name: ${_instance}
-    images: {}
+    images:
+      renovate:
+        registry: ghcr.io
+        repository: renovatebot/renovate
+        version: 43.53.0
     charts:
       renovate:
         source: oci://ghcr.io/renovatebot/charts/renovate
         version: 46.50.0
+    helm_values:
+      image:
+        registry: ${renovate:images:renovate:registry}
+        repository: ${renovate:images:renovate:repository}
+        tag: ${renovate:images:renovate:version}

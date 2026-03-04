@@ -25,11 +25,18 @@ By default, the Commodore meta-parameter `parameters._instance` is used. `parame
 
 [horizontal]
 type:: dictionary
-default:: `{}`
+default:: See https://github.com/containeroo/component-renovate/blob/master/class/defaults.yml[class/defaults.yml]
 
-Optional container image configuration.
-This component intentionally doesn't pin a default Renovate image tag because Renovate releases very frequently.
-Set the image tag explicitly in your cluster configuration via `helm_values.image.tag`.
+Dictionary containing the container images used by this component.
+
+
+== `images.renovate.version`
+
+[horizontal]
+type:: string
+default:: See https://github.com/containeroo/component-renovate/blob/master/class/defaults.yml[class/defaults.yml]
+
+The Renovate container image tag used by this component.
 
 
 == `charts`
@@ -44,7 +51,7 @@ Dictionary containing the chart versions used by this component.
 
 [horizontal]
 type:: string
-default:: See https://github.com/projectsyn/component-renovate/blob/master/class/defaults.yml[class/defaults.yml]
+default:: See https://github.com/containeroo/component-renovate/blob/master/class/defaults.yml[class/defaults.yml]
 
 The Helm chart version used for this component.
 
@@ -53,7 +60,7 @@ The Helm chart version used for this component.
 
 [horizontal]
 type:: string
-default:: See https://github.com/projectsyn/component-renovate/blob/master/class/defaults.yml[class/defaults.yml]
+default:: See https://github.com/containeroo/component-renovate/blob/master/class/defaults.yml[class/defaults.yml]
 
 The Helm chart source repository used by this component.
 
@@ -62,7 +69,7 @@ The Helm chart source repository used by this component.
 
 [horizontal]
 type:: dict
-default:: `{}`
+default:: See https://github.com/containeroo/component-renovate/blob/master/class/defaults.yml[class/defaults.yml]
 
 All `helm_values` are passed to the Renovate Helm chart.
 The component doesn't ship a default Renovate bot configuration.

@@ -6,6 +6,17 @@
   "customManagers": [
     {
       "customType": "regex",
+      "description": "Renovate container image tag pinned in class/defaults.yml",
+      "managerFilePatterns": ["/^class\\/defaults\\.yml$/"],
+      "matchStrings": [
+        "renovate:\\s*\\n(?:[^\\n]*\\n)*?\\s*images:\\s*\\n(?:[^\\n]*\\n)*?\\s*renovate:\\s*\\n(?:[^\\n]*\\n)*?\\s*version:\\s*(?<currentValue>\\d+\\.\\d+\\.\\d+)\\s*\\n"
+      ],
+      "depNameTemplate": "ghcr.io/renovatebot/renovate",
+      "datasourceTemplate": "docker",
+      "versioningTemplate": "semver"
+    },
+    {
+      "customType": "regex",
       "description": "Renovate Helm chart version pinned in class/defaults.yml",
       "managerFilePatterns": ["/^class\\/defaults\\.yml$/"],
       "matchStrings": [
@@ -15,6 +26,24 @@
       "datasourceTemplate": "helm",
       "registryUrlTemplate": "https://renovatebot.github.io/helm-charts",
       "versioningTemplate": "semver"
+    }
+  ],
+  "packageRules": [
+    {
+      "matchUpdateTypes": ["patch", "digest", "pin"],
+      "automerge": true,
+      "platformAutomerge": false,
+      "labels": ["dependency", "bump:patch"]
+    },
+    {
+      "matchUpdateTypes": ["minor"],
+      "automerge": true,
+      "platformAutomerge": false,
+      "labels": ["dependency", "bump:minor"]
+    },
+    {
+      "matchUpdateTypes": ["major"],
+      "labels": ["dependency", "bump:major"]
     }
   ],
   "separateMinorPatch": true,

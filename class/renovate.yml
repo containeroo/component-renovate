@@ -1,11 +1,26 @@
+---
 parameters:
   kapitan:
+    dependencies:
+      - type: helm
+        source: oci://ghcr.io/renovatebot/charts/renovate
+        version: ${renovate:charts:renovate}
+        chart_name: renovate
+        output_path: dependencies/renovate/helmcharts/renovate
     compile:
       - input_paths:
-          - ${_base_directory}/component/app.jsonnet
+          - renovate/component/app.jsonnet
         input_type: jsonnet
         output_path: .
       - input_paths:
-          - ${_base_directory}/component/main.jsonnet
+          - renovate/component/main.jsonnet
         input_type: jsonnet
-        output_path: renovate/
+        output_path: renovate/${_instance}/
+      - output_path: renovate/${_instance}/01_helmchart
+        input_type: helm
+        input_paths:
+          - dependencies/renovate/helmcharts/renovate
+        helm_params:
+          name: ${renovate:release_name}
+          namespace: ${renovate:namespace}
+        helm_values: ${renovate:helm_values}

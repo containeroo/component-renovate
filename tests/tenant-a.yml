@@ -1,8 +1,10 @@
 ---
-# Overwrite parameters here
+applications:
+  - renovate as tenant-a
 
 parameters:
-  renovate:
+  tenant_a:
+    namespace: syn-renovate-tenant-a
     helm_values:
       cronjob:
         suspend: true

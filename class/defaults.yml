@@ -1,5 +1,13 @@
+---
 parameters:
   renovate:
     =_metadata:
+      multi_instance: true
       multi_tenant: true
     namespace: syn-renovate
+    release_name: ${_instance}
+    helm_values:
+      cronjob:
+        suspend: true
+    charts:
+      renovate: 46.49.1

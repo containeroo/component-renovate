@@ -4,7 +4,7 @@
   "ignorePaths": [".github/**"],
   "labels": ["dependency"],
   "gitIgnoredAuthors": [
-    "github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"
+    "renovate-golden-bot@users.noreply.github.com"
   ],
   "customManagers": [
     {

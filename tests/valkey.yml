@@ -1,0 +1,20 @@
+---
+parameters:
+  renovate:
+    images:
+      valkey:
+        version: 9.0.0
+    components:
+      valkey:
+        enabled: true
+        namespace: syn-renovate-cache
+        release_name: renovate-cache
+    helm_values:
+      cronjob:
+        suspend: true
+      renovate:
+        config: |
+          {
+            "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+            "dryRun": "full"
+          }

@@ -27,7 +27,7 @@ spec:
                 - name: RENOVATE_CONFIG_FILE
                   value: /usr/src/app/config.json
               envFrom: null
-              image: ghcr.io/renovatebot/renovate:43.55.2
+              image: ghcr.io/renovatebot/renovate:43.55.3
               imagePullPolicy: IfNotPresent
               name: renovate
               volumeMounts:

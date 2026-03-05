@@ -2,30 +2,32 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   labels:
-    app.kubernetes.io/instance: tenant-a
+    app.kubernetes.io/instance: valkey
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: renovate
     app.kubernetes.io/version: 43.55.2
     helm.sh/chart: renovate-46.52.2
-  name: tenant-a-renovate
-  namespace: syn-renovate-tenant-a
+  name: valkey-renovate
+  namespace: syn-renovate
 spec:
   jobTemplate:
     metadata:
       labels:
-        app.kubernetes.io/instance: tenant-a
+        app.kubernetes.io/instance: valkey
         app.kubernetes.io/name: renovate
     spec:
       template:
         metadata:
           labels:
-            app.kubernetes.io/instance: tenant-a
+            app.kubernetes.io/instance: valkey
             app.kubernetes.io/name: renovate
         spec:
           containers:
             - env:
                 - name: RENOVATE_CONFIG_FILE
                   value: /usr/src/app/config.json
+                - name: RENOVATE_REDIS_URL
+                  value: redis://renovate-cache.syn-renovate-cache.svc.cluster.local:6379/0
               envFrom: null
               image: ghcr.io/renovatebot/renovate:43.55.3
               imagePullPolicy: IfNotPresent
@@ -38,7 +40,7 @@ spec:
           serviceAccountName: default
           volumes:
             - configMap:
-                name: tenant-a-renovate-config
+                name: valkey-renovate-config
               name: config-volume
   schedule: 0 1 * * *
   suspend: true

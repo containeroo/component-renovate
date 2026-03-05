@@ -38,6 +38,14 @@ default:: See https://github.com/containeroo/component-renovate/blob/master/clas
 
 The Renovate container image tag used by this component.
 
+== `images.valkey.version`
+
+[horizontal]
+type:: string
+default:: See https://github.com/containeroo/component-renovate/blob/master/class/defaults.yml[class/defaults.yml]
+
+The Valkey container image tag used when deploying Valkey.
+
 
 == `charts`
 
@@ -65,6 +73,63 @@ default:: See https://github.com/containeroo/component-renovate/blob/master/clas
 The Helm chart source repository used by this component.
 
 
+== `charts.valkey.version`
+
+[horizontal]
+type:: string
+default:: See https://github.com/containeroo/component-renovate/blob/master/class/defaults.yml[class/defaults.yml]
+
+The Valkey Helm chart version used when deploying Valkey.
+
+
+== `charts.valkey.source`
+
+[horizontal]
+type:: string
+default:: See https://github.com/containeroo/component-renovate/blob/master/class/defaults.yml[class/defaults.yml]
+
+The Valkey Helm chart source repository used when deploying Valkey.
+
+
+== `components`
+
+[horizontal]
+type:: dict
+default:: See https://github.com/containeroo/component-renovate/blob/master/class/defaults.yml[class/defaults.yml]
+
+Optional sub-components managed by this component.
+
+
+== `components.valkey.enabled`
+
+[horizontal]
+type:: bool
+default:: `false`
+
+Whether to deploy a Valkey Helm release alongside Renovate.
+When enabled, the component also injects `RENOVATE_REDIS_URL` into the Renovate deployment, pointing to the configured Valkey service hostname.
+
+
+== `components.valkey.namespace`
+
+[horizontal]
+type:: string
+default:: `${renovate:namespace}`
+
+Namespace where the Valkey Helm release is deployed.
+Also used for the generated Redis hostname in `RENOVATE_REDIS_URL`.
+
+
+== `components.valkey.release_name`
+
+[horizontal]
+type:: string
+default:: `${_instance}-valkey`
+
+Helm release name for the Valkey deployment.
+Also used for the generated Redis hostname in `RENOVATE_REDIS_URL`.
+
+
 == `helm_values`
 
 [horizontal]
@@ -78,9 +143,25 @@ For the supported self-hosted Renovate options, see https://docs.renovatebot.com
 For the supported Helm chart values, see https://github.com/renovatebot/helm-charts/tree/main/charts/renovate[the official Renovate Helm chart documentation].
 
 
+== `valkey_helm_values`
+
+[horizontal]
+type:: dict
+default:: See https://github.com/containeroo/component-renovate/blob/master/class/defaults.yml[class/defaults.yml]
+
+Values passed to the Valkey Helm chart when `components.valkey.enabled` is `true`.
+By default, image registry/repository/tag values are sourced from `images.valkey.*`.
+For supported values, see https://github.com/valkey-io/valkey-helm[the official Valkey Helm chart repository].
+
+
 == Example
 
 [source,yaml]
 ----
 namespace: example-namespace
+components:
+  valkey:
+    enabled: true
+valkey_helm_values:
+  architecture: standalone
 ----

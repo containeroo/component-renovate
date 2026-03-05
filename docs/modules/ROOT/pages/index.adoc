@@ -1,5 +1,6 @@
 = renovate
 
 renovate is a Commodore component to manage renovate.
+It can optionally deploy a Valkey instance via the Valkey Helm chart.
 
 See the xref:references/parameters.adoc[parameters] reference for further details.

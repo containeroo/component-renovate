@@ -3,5 +3,5 @@ kind: Namespace
 metadata:
   annotations: {}
   labels:
-    name: syn-renovate
-  name: syn-renovate
+    name: syn-valkey
+  name: syn-valkey

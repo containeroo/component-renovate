@@ -4,7 +4,7 @@ parameters:
     =_metadata:
       multi_instance: true
       multi_tenant: true
-    namespace: syn-renovate
+    namespace: syn-${_instance}
     release_name: ${_instance}
     images:
       renovate:

@@ -6,9 +6,10 @@ The parent key for all of the following parameters is `renovate`.
 
 [horizontal]
 type:: string
-default:: `syn-renovate`
+default:: `syn-${_instance}`
 
 The namespace in which to deploy this component.
+By default, the namespace is derived from the instance name as `syn-${_instance}`.
 
 
 == `release_name`

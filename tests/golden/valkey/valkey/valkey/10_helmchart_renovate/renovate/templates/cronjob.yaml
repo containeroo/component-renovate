@@ -8,7 +8,7 @@ metadata:
     app.kubernetes.io/version: 43.55.3
     helm.sh/chart: renovate-46.52.3
   name: valkey-renovate
-  namespace: syn-renovate
+  namespace: syn-valkey
 spec:
   jobTemplate:
     metadata:

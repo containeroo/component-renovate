@@ -53,9 +53,14 @@
   ],
   "packageRules": [
     {
-      "groupName": "all dependencies",
-      "groupSlug": "all",
-      "matchPackageNames": ["*"]
+      "groupName": "renovate dependencies",
+      "groupSlug": "renovate",
+      "matchPackageNames": ["ghcr.io/renovatebot/renovate", "renovate"]
+    },
+    {
+      "groupName": "valkey dependencies",
+      "groupSlug": "valkey",
+      "matchPackageNames": ["docker.io/valkey/valkey", "valkey"]
     },
     {
       "matchUpdateTypes": ["patch", "digest", "pin"],

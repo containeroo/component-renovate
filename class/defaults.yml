@@ -14,7 +14,7 @@ parameters:
     charts:
       renovate:
         source: oci://ghcr.io/renovatebot/charts/renovate
-        version: 46.50.0
+        version: 46.52.2
     helm_values:
       image:
         registry: ${renovate:images:renovate:registry}

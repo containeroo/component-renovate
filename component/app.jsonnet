@@ -7,7 +7,19 @@ local argocd = import 'lib/argocd.libjsonnet';
 local componentName = 'renovate';
 local appName =
   if instance == componentName then componentName else '%s-%s' % [componentName, instance];
-local app = argocd.App(appName, params.namespace);
+local baseApp = argocd.App(appName, params.namespace);
+local appSourcePath = 'manifests/%s/%s' % [componentName, instance];
+local app =
+  if baseApp == {} then
+    baseApp
+  else
+    baseApp + {
+      spec+: {
+        source+: {
+          path: appSourcePath,
+        },
+      },
+    };
 
 local appPath =
   local project = std.get(std.get(app, 'spec', {}), 'project', 'syn');

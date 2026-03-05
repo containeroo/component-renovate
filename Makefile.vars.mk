@@ -19,9 +19,12 @@ endif
 ifneq "$(shell which docker 2>/dev/null)" ""
 	DOCKER_CMD    ?= $(shell which docker)
 	DOCKER_USERNS ?= ""
-else
-	DOCKER_CMD    ?= podman
+else ifneq "$(shell which podman 2>/dev/null)" ""
+	DOCKER_CMD    ?= $(shell which podman)
 	DOCKER_USERNS ?= keep-id
+else
+	DOCKER_CMD    ?=
+	DOCKER_USERNS ?=
 endif
 DOCKER_ARGS ?= run --rm -u "$$(id -u):$$(id -g)" --userns=$(DOCKER_USERNS) -w /$(COMPONENT_NAME) -e HOME="/$(COMPONENT_NAME)"
 DOCKER_EXTRA_ARGS ?=
@@ -52,9 +55,14 @@ VALE_ARGS ?= --minAlertLevel=error --config=/pages/ROOT/pages/.vale.ini /pages
 
 ANTORA_PREVIEW_CMD ?= $(DOCKER_CMD) run --rm --publish 35729:35729 --publish 2020:2020 $(antora_git_volume) --volume "${PWD}/docs":/preview/antora/docs ghcr.io/vshn/antora-preview:3.1.2.3 --style=syn --antora=docs
 
-COMMODORE_CMD  ?= $(DOCKER_CMD) $(DOCKER_ARGS) $(DOCKER_EXTRA_ARGS) $(ca_cert_env) $(git_volume) $(root_volume) $(ca_cert_volume) docker.io/projectsyn/commodore:latest
 COMPILE_CMD    ?= $(COMMODORE_CMD) component compile . $(commodore_args)
-JB_CMD         ?= $(DOCKER_CMD) $(DOCKER_ARGS) $(DOCKER_EXTRA_ARGS) $(ca_cert_env) $(root_volume) $(ca_cert_volume) --entrypoint /usr/local/bin/jb docker.io/projectsyn/commodore:latest install
+ifneq ($(strip $(DOCKER_CMD)),)
+	COMMODORE_CMD ?= $(DOCKER_CMD) $(DOCKER_ARGS) $(DOCKER_EXTRA_ARGS) $(ca_cert_env) $(git_volume) $(root_volume) $(ca_cert_volume) docker.io/projectsyn/commodore:latest
+	JB_CMD        ?= $(DOCKER_CMD) $(DOCKER_ARGS) $(DOCKER_EXTRA_ARGS) $(ca_cert_env) $(root_volume) $(ca_cert_volume) --entrypoint /usr/local/bin/jb docker.io/projectsyn/commodore:latest install
+else
+	COMMODORE_CMD ?= commodore
+	JB_CMD        ?= jb install
+endif
 GOLDEN_FILES    ?= $(shell find tests/golden/$(instance) -type f)
 
 KUBENT_FILES    ?= $(shell echo "$(GOLDEN_FILES)" | sed 's/ /,/g')

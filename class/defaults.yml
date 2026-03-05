@@ -10,7 +10,7 @@ parameters:
       renovate:
         registry: ghcr.io
         repository: renovatebot/renovate
-        version: 43.55.4
+        version: 43.55.9
       valkey:
         registry: docker.io
         repository: valkey/valkey

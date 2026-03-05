@@ -3,9 +3,6 @@
   "extends": ["config:recommended"],
   "ignorePaths": [".github/**"],
   "labels": ["dependency"],
-  "gitIgnoredAuthors": [
-    "renovate-golden-bot@users.noreply.github.com"
-  ],
   "customManagers": [
     {
       "customType": "regex",
@@ -35,13 +32,13 @@
     {
       "matchUpdateTypes": ["patch", "digest", "pin"],
       "automerge": true,
-      "platformAutomerge": true,
+      "ignoreTests": true,
       "labels": ["dependency", "bump:patch"]
     },
     {
       "matchUpdateTypes": ["minor"],
       "automerge": true,
-      "platformAutomerge": true,
+      "ignoreTests": true,
       "labels": ["dependency", "bump:minor"]
     },
     {

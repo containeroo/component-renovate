@@ -1,28 +1,20 @@
 ---
 parameters:
   =_config:
-    valkey_renovate_helm_values:
-      'True':
-        env:
-          RENOVATE_REDIS_URL: redis://${renovate:components:valkey:release_name}.${renovate:components:valkey:namespace}.svc.cluster.local:6379/0
-      'False': {}
     valkey_helm:
       'True':
         input_paths:
-          - dependencies/renovate/helmcharts/valkey
+          - ${_base_directory}/helmcharts/valkey
         input_type: helm
         helm_params:
           name: ${renovate:components:valkey:release_name}
           namespace: ${renovate:components:valkey:namespace}
         helm_values: ${renovate:valkey_helm_values}
-        output_path: renovate/${_instance}/02_helmchart_valkey
+        output_path: ${_instance}/20_helmchart_valkey
       'False': &option_false
         input_paths: []
         input_type: jsonnet
         output_path: ''
-
-  renovate:
-    helm_values: ${_config:valkey_renovate_helm_values:${renovate:components:valkey:enabled}}
 
   kapitan:
     dependencies:
@@ -30,27 +22,33 @@ parameters:
         source: ${renovate:charts:renovate:source}
         version: ${renovate:charts:renovate:version}
         chart_name: renovate
-        output_path: dependencies/renovate/helmcharts/renovate
+        output_path: ${_base_directory}/helmcharts/renovate
       - type: helm
         source: ${renovate:charts:valkey:source}
         version: ${renovate:charts:valkey:version}
         chart_name: valkey
-        output_path: dependencies/renovate/helmcharts/valkey
+        output_path: ${_base_directory}/helmcharts/valkey
     compile:
       - input_paths:
-          - renovate/component/app.jsonnet
+          - ${_base_directory}/component/app.jsonnet
         input_type: jsonnet
         output_path: .
       - input_paths:
-          - renovate/component/main.jsonnet
+          - ${_base_directory}/component/main.jsonnet
         input_type: jsonnet
-        output_path: renovate/${_instance}/
-      - output_path: renovate/${_instance}/01_helmchart
+        output_path: ${_instance}/
+      - input_paths:
+          - ${_base_directory}/component/helm/renovate.jsonnet
+        input_type: jsonnet
+        output_path: ${_base_directory}/helmcharts/renovate
+      - output_path: ${_instance}/10_helmchart_renovate
         input_type: helm
         input_paths:
-          - dependencies/renovate/helmcharts/renovate
+          - ${_base_directory}/helmcharts/renovate
         helm_params:
           name: ${renovate:release_name}
           namespace: ${renovate:namespace}
-        helm_values: ${renovate:helm_values}
+        helm_values_files:
+          - ${_base_directory}/helmcharts/renovate/values-component.yaml
+          - ${_base_directory}/helmcharts/renovate/values-overrides.yaml
       - ${_config:valkey_helm:${renovate:components:valkey:enabled}}

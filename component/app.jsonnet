@@ -4,27 +4,12 @@ local params = inv.parameters.renovate;
 local instance = inv.parameters._instance;
 local argocd = import 'lib/argocd.libjsonnet';
 
-local componentName = 'renovate';
-local appName =
-  if instance == componentName then componentName else '%s-%s' % [componentName, instance];
-local baseApp = argocd.App(appName, params.namespace);
-local appSourcePath = 'manifests/%s/%s' % [componentName, instance];
-local app =
-  if baseApp == {} then
-    baseApp
-  else
-    baseApp + {
-      spec+: {
-        source+: {
-          path: appSourcePath,
-        },
-      },
-    };
+local app = argocd.App(instance, params.namespace);
 
 local appPath =
   local project = std.get(std.get(app, 'spec', {}), 'project', 'syn');
   if project == 'syn' then 'apps' else 'apps-%s' % project;
 
 {
-  ['%s/%s' % [appPath, appName]]: app,
+  ['%s/%s' % [appPath, instance]]: app,
 }

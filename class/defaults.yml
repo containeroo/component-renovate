@@ -11,12 +11,29 @@ parameters:
         registry: ghcr.io
         repository: renovatebot/renovate
         version: 43.55.3
+      valkey:
+        registry: docker.io
+        repository: valkey/valkey
+        version: 9.0.1
     charts:
       renovate:
         source: oci://ghcr.io/renovatebot/charts/renovate
         version: 46.52.2
+      valkey:
+        source: https://valkey.io/valkey-helm
+        version: 0.9.2
+    components:
+      valkey:
+        enabled: false
+        namespace: ${renovate:namespace}
+        release_name: ${_instance}-valkey
     helm_values:
       image:
         registry: ${renovate:images:renovate:registry}
         repository: ${renovate:images:renovate:repository}
         tag: ${renovate:images:renovate:version}
+    valkey_helm_values:
+      image:
+        registry: ${renovate:images:valkey:registry}
+        repository: ${renovate:images:valkey:repository}
+        tag: ${renovate:images:valkey:version}

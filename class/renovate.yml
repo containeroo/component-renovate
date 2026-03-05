@@ -1,5 +1,29 @@
 ---
 parameters:
+  =_config:
+    valkey_renovate_helm_values:
+      'True':
+        env:
+          RENOVATE_REDIS_URL: redis://${renovate:components:valkey:release_name}.${renovate:components:valkey:namespace}.svc.cluster.local:6379/0
+      'False': {}
+    valkey_helm:
+      'True':
+        input_paths:
+          - dependencies/renovate/helmcharts/valkey
+        input_type: helm
+        helm_params:
+          name: ${renovate:components:valkey:release_name}
+          namespace: ${renovate:components:valkey:namespace}
+        helm_values: ${renovate:valkey_helm_values}
+        output_path: renovate/${_instance}/02_helmchart_valkey
+      'False': &option_false
+        input_paths: []
+        input_type: jsonnet
+        output_path: ''
+
+  renovate:
+    helm_values: ${_config:valkey_renovate_helm_values:${renovate:components:valkey:enabled}}
+
   kapitan:
     dependencies:
       - type: helm
@@ -7,6 +31,11 @@ parameters:
         version: ${renovate:charts:renovate:version}
         chart_name: renovate
         output_path: dependencies/renovate/helmcharts/renovate
+      - type: helm
+        source: ${renovate:charts:valkey:source}
+        version: ${renovate:charts:valkey:version}
+        chart_name: valkey
+        output_path: dependencies/renovate/helmcharts/valkey
     compile:
       - input_paths:
           - renovate/component/app.jsonnet
@@ -24,3 +53,4 @@ parameters:
           name: ${renovate:release_name}
           namespace: ${renovate:namespace}
         helm_values: ${renovate:helm_values}
+      - ${_config:valkey_helm:${renovate:components:valkey:enabled}}

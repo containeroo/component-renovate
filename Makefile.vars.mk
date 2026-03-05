@@ -24,6 +24,18 @@ else
 	DOCKER_USERNS ?= keep-id
 endif
 DOCKER_ARGS ?= run --rm -u "$$(id -u):$$(id -g)" --userns=$(DOCKER_USERNS) -w /$(COMPONENT_NAME) -e HOME="/$(COMPONENT_NAME)"
+DOCKER_EXTRA_ARGS ?=
+
+CA_CERT_FILE ?=
+CA_CERT_PATH ?= /tmp/custom-ca.pem
+CA_CERT_FILE_RESOLVED ?= $(if $(filter ~/%,$(CA_CERT_FILE)),$(HOME)/$(patsubst ~/%,%,$(CA_CERT_FILE)),$(CA_CERT_FILE))
+ifneq ($(strip $(CA_CERT_FILE)),)
+	ca_cert_volume ?= -v "$(abspath $(CA_CERT_FILE_RESOLVED)):$(CA_CERT_PATH):ro"
+	ca_cert_env    ?= -e SSL_CERT_FILE="$(CA_CERT_PATH)" -e REQUESTS_CA_BUNDLE="$(CA_CERT_PATH)" -e CURL_CA_BUNDLE="$(CA_CERT_PATH)"
+else
+	ca_cert_volume ?=
+	ca_cert_env    ?=
+endif
 
 JSONNET_FILES   ?= $(shell find . -type f -not -path './vendor/*' \( -name '*.*jsonnet' -or -name '*.libsonnet' \))
 JSONNETFMT_ARGS ?= --in-place --pad-arrays
@@ -40,9 +52,9 @@ VALE_ARGS ?= --minAlertLevel=error --config=/pages/ROOT/pages/.vale.ini /pages
 
 ANTORA_PREVIEW_CMD ?= $(DOCKER_CMD) run --rm --publish 35729:35729 --publish 2020:2020 $(antora_git_volume) --volume "${PWD}/docs":/preview/antora/docs ghcr.io/vshn/antora-preview:3.1.2.3 --style=syn --antora=docs
 
-COMMODORE_CMD  ?= $(DOCKER_CMD) $(DOCKER_ARGS) $(git_volume) $(root_volume) docker.io/projectsyn/commodore:latest
+COMMODORE_CMD  ?= $(DOCKER_CMD) $(DOCKER_ARGS) $(DOCKER_EXTRA_ARGS) $(ca_cert_env) $(git_volume) $(root_volume) $(ca_cert_volume) docker.io/projectsyn/commodore:latest
 COMPILE_CMD    ?= $(COMMODORE_CMD) component compile . $(commodore_args)
-JB_CMD         ?= $(DOCKER_CMD) $(DOCKER_ARGS) --entrypoint /usr/local/bin/jb docker.io/projectsyn/commodore:latest install
+JB_CMD         ?= $(DOCKER_CMD) $(DOCKER_ARGS) $(DOCKER_EXTRA_ARGS) $(ca_cert_env) $(root_volume) $(ca_cert_volume) --entrypoint /usr/local/bin/jb docker.io/projectsyn/commodore:latest install
 GOLDEN_FILES    ?= $(shell find tests/golden/$(instance) -type f)
 
 KUBENT_FILES    ?= $(shell echo "$(GOLDEN_FILES)" | sed 's/ /,/g')
@@ -51,4 +63,4 @@ KUBENT_IMAGE    ?= ghcr.io/doitintl/kube-no-trouble:latest
 KUBENT_DOCKER   ?= $(DOCKER_CMD) $(DOCKER_ARGS) $(root_volume) --entrypoint=/app/kubent $(KUBENT_IMAGE)
 
 instance ?= defaults
-test_instances = tests/defaults.yml tests/tenant-a.yml
+test_instances = tests/defaults.yml tests/tenant-a.yml tests/valkey.yml

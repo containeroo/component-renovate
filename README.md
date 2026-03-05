@@ -17,6 +17,19 @@ Run the `make docs-serve` command in the root of the project, and then browse to
 
 After writing the documentation, please use the `make docs-vale` command and correct any warnings raised by the tool.
 
+## Testing with custom CA certificates
+
+If dependency fetching fails during `make test` with TLS trust errors, provide your CA bundle:
+
+```bash
+make test -e instance=defaults CA_CERT_FILE=/path/to/ca-bundle.pem
+```
+
+This mounts the certificate into the Commodore container and exports:
+- `SSL_CERT_FILE`
+- `REQUESTS_CA_BUNDLE`
+- `CURL_CA_BUNDLE`
+
 ## Contributing and license
 
 This library is licensed under [BSD-3-Clause](LICENSE).

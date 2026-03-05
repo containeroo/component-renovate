@@ -10,7 +10,7 @@ parameters:
       renovate:
         registry: ghcr.io
         repository: renovatebot/renovate
-        version: 43.55.2
+        version: 43.55.3
     charts:
       renovate:
         source: oci://ghcr.io/renovatebot/charts/renovate

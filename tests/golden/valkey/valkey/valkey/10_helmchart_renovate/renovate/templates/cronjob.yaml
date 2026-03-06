@@ -29,7 +29,7 @@ spec:
                 - name: RENOVATE_REDIS_URL
                   value: redis://renovate-cache.syn-renovate-cache.svc.cluster.local:6379/0
               envFrom: null
-              image: ghcr.io/renovatebot/renovate:43.57.0
+              image: ghcr.io/renovatebot/renovate:43.58.0
               imagePullPolicy: IfNotPresent
               name: renovate
               volumeMounts:

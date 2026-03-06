@@ -31,7 +31,7 @@ default:: See https://github.com/containeroo/component-renovate/blob/master/clas
 Dictionary containing the container images used by this component.
 
 
-== `images.renovate.version`
+== `images.renovate.tag`
 
 [horizontal]
 type:: string
@@ -39,7 +39,7 @@ default:: See https://github.com/containeroo/component-renovate/blob/master/clas
 
 The Renovate container image tag used by this component.
 
-== `images.valkey.version`
+== `images.valkey.tag`
 
 [horizontal]
 type:: string

@@ -26,6 +26,7 @@ make test -e instance=defaults CA_CERT_FILE=/path/to/ca-bundle.pem
 ```
 
 This mounts the certificate into the Commodore container and exports:
+
 - `SSL_CERT_FILE`
 - `REQUESTS_CA_BUNDLE`
 - `CURL_CA_BUNDLE`

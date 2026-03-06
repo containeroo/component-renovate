@@ -29,23 +29,17 @@ type:: dictionary
 default:: See https://github.com/containeroo/component-renovate/blob/master/class/defaults.yml[class/defaults.yml]
 
 Dictionary containing the container images used by this component.
+This parameter currently configures only the Valkey image settings.
 
 
-== `images.renovate.tag`
-
-[horizontal]
-type:: string
-default:: See https://github.com/containeroo/component-renovate/blob/master/class/defaults.yml[class/defaults.yml]
-
-The Renovate container image tag used by this component.
-
-== `images.valkey.tag`
+== `images.valkey`
 
 [horizontal]
-type:: string
+type:: dictionary
 default:: See https://github.com/containeroo/component-renovate/blob/master/class/defaults.yml[class/defaults.yml]
 
-The Valkey container image tag used when deploying Valkey.
+Valkey image settings passed to the Valkey Helm chart when `components.valkey.enabled` is `true`.
+Includes `registry`, `repository`, and `tag`.
 
 
 == `charts`
@@ -138,6 +132,7 @@ type:: dict
 default:: See https://github.com/containeroo/component-renovate/blob/master/class/defaults.yml[class/defaults.yml]
 
 All `helm_values` are passed to the Renovate Helm chart.
+By default, this component doesn't set image values for Renovate; the Helm chart defaults are used.
 The component doesn't ship a default Renovate bot configuration.
 You must provide either `helm_values.renovate.config` or `helm_values.renovate.existingConfigFile`.
 For the supported self-hosted Renovate options, see https://docs.renovatebot.com/self-hosted-configuration/[the official Renovate self-hosted configuration docs].

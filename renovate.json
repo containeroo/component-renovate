@@ -3,54 +3,6 @@
   "extends": ["config:recommended"],
   "ignorePaths": [".github/**"],
   "labels": ["dependency"],
-  "customManagers": [
-    {
-      "customType": "regex",
-      "description": "Renovate container image tag pinned in class/defaults.yml",
-      "managerFilePatterns": ["/^class\\/defaults\\.yml$/"],
-      "matchStrings": [
-        "renovate:\\s*\\n(?:[^\\n]*\\n)*?\\s*images:\\s*\\n(?:[^\\n]*\\n)*?\\s*renovate:\\s*\\n(?:[^\\n]*\\n)*?\\s*version:\\s*(?<currentValue>\\d+\\.\\d+\\.\\d+)\\s*\\n"
-      ],
-      "depNameTemplate": "ghcr.io/renovatebot/renovate",
-      "datasourceTemplate": "docker",
-      "versioningTemplate": "semver"
-    },
-    {
-      "customType": "regex",
-      "description": "Valkey container image tag pinned in class/defaults.yml",
-      "managerFilePatterns": ["/^class\\/defaults\\.yml$/"],
-      "matchStrings": [
-        "renovate:\\s*\\n(?:[^\\n]*\\n)*?\\s*images:\\s*\\n(?:[^\\n]*\\n)*?\\s*valkey:\\s*\\n(?:[^\\n]*\\n)*?\\s*version:\\s*(?<currentValue>\\d+\\.\\d+\\.\\d+)\\s*\\n"
-      ],
-      "depNameTemplate": "docker.io/valkey/valkey",
-      "datasourceTemplate": "docker",
-      "versioningTemplate": "semver"
-    },
-    {
-      "customType": "regex",
-      "description": "Renovate Helm chart version pinned in class/defaults.yml",
-      "managerFilePatterns": ["/^class\\/defaults\\.yml$/"],
-      "matchStrings": [
-        "renovate:\\s*\\n(?:[^\\n]*\\n)*?\\s*charts:\\s*\\n(?:[^\\n]*\\n)*?\\s*renovate:\\s*\\n(?:[^\\n]*\\n)*?\\s*version:\\s*(?<currentValue>\\d+\\.\\d+\\.\\d+)\\s*\\n"
-      ],
-      "depNameTemplate": "renovate",
-      "datasourceTemplate": "helm",
-      "registryUrlTemplate": "https://renovatebot.github.io/helm-charts",
-      "versioningTemplate": "semver"
-    },
-    {
-      "customType": "regex",
-      "description": "Valkey Helm chart version pinned in class/defaults.yml",
-      "managerFilePatterns": ["/^class\\/defaults\\.yml$/"],
-      "matchStrings": [
-        "renovate:\\s*\\n(?:[^\\n]*\\n)*?\\s*charts:\\s*\\n(?:[^\\n]*\\n)*?\\s*valkey:\\s*\\n(?:[^\\n]*\\n)*?\\s*version:\\s*(?<currentValue>\\d+\\.\\d+\\.\\d+)\\s*\\n"
-      ],
-      "depNameTemplate": "valkey",
-      "datasourceTemplate": "helm",
-      "registryUrlTemplate": "https://valkey.io/valkey-helm",
-      "versioningTemplate": "semver"
-    }
-  ],
   "packageRules": [
     {
       "groupName": "renovate dependencies",

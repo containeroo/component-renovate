@@ -2,12 +2,13 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["config:recommended"],
   "ignorePaths": [".github/**"],
+  "assignees": ["rxbn"],
   "labels": ["dependency"],
   "packageRules": [
     {
       "groupName": "renovate dependencies",
       "groupSlug": "renovate",
-      "matchPackageNames": ["ghcr.io/renovatebot/renovate", "renovate"]
+      "matchPackageNames": ["renovate"]
     },
     {
       "groupName": "valkey dependencies",
@@ -15,18 +16,21 @@
       "matchPackageNames": ["docker.io/valkey/valkey", "valkey"]
     },
     {
-      "matchUpdateTypes": ["patch", "digest", "pin"],
-      "automerge": true,
-      "labels": ["dependency", "bump:patch"]
+      "matchUpdateTypes": ["patch"],
+      "addLabels": ["bump:patch"]
     },
     {
       "matchUpdateTypes": ["minor"],
-      "automerge": true,
-      "labels": ["dependency", "bump:minor"]
+      "addLabels": ["bump:minor"]
+    },
+    {
+      "matchPackageNames": ["renovate"],
+      "matchUpdateTypes": ["patch", "minor"],
+      "automerge": true
     },
     {
       "matchUpdateTypes": ["major"],
-      "labels": ["dependency", "bump:major"]
+      "addLabels": ["bump:major"]
     }
   ],
   "separateMinorPatch": true,

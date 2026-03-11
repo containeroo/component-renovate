@@ -14,7 +14,7 @@ parameters:
     charts:
       renovate:
         source: oci://ghcr.io/renovatebot/charts/renovate
-        version: 46.58.6
+        version: 46.58.7
       valkey:
         source: https://valkey.io/valkey-helm
         version: 0.9.3

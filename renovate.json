@@ -3,6 +3,9 @@
   "extends": ["config:recommended"],
   "ignorePaths": [".github/**"],
   "labels": ["dependency"],
+  "timezone": "Europe/Zurich",
+  "schedule": ["after 2am and before 3am every day"],
+  "updateNotScheduled": false,
   "packageRules": [
     {
       "matchUpdateTypes": ["patch"],

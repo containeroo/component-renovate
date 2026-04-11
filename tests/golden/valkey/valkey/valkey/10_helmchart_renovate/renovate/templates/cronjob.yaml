@@ -5,8 +5,8 @@ metadata:
     app.kubernetes.io/instance: valkey
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: renovate
-    app.kubernetes.io/version: 43.110.12
-    helm.sh/chart: renovate-46.106.10
+    app.kubernetes.io/version: 43.110.14
+    helm.sh/chart: renovate-46.106.12
   name: valkey-renovate
   namespace: syn-valkey
 spec:
@@ -29,7 +29,7 @@ spec:
                 - name: RENOVATE_REDIS_URL
                   value: redis://renovate-cache.syn-renovate-cache.svc.cluster.local:6379/0
               envFrom: null
-              image: ghcr.io/renovatebot/renovate:43.110.12
+              image: ghcr.io/renovatebot/renovate:43.110.14
               imagePullPolicy: IfNotPresent
               name: renovate
               volumeMounts:

@@ -11,7 +11,7 @@ metadata:
     app.kubernetes.io/instance: tenant-a
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: renovate
-    app.kubernetes.io/version: 43.110.15
-    helm.sh/chart: renovate-46.106.13
+    app.kubernetes.io/version: 43.110.17
+    helm.sh/chart: renovate-46.106.15
   name: tenant-a-renovate-config
   namespace: syn-renovate-tenant-a

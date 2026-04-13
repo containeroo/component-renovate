@@ -14,10 +14,10 @@ parameters:
     charts:
       renovate:
         source: oci://ghcr.io/renovatebot/charts/renovate
-        version: 46.106.13
+        version: 46.106.15
       valkey:
         source: https://valkey.io/valkey-helm
-        version: 0.9.3
+        version: 0.9.4
     components:
       valkey:
         enabled: false

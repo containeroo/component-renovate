@@ -6,7 +6,7 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: valkey
     app.kubernetes.io/version: 9.0.3
-    helm.sh/chart: valkey-0.9.3
+    helm.sh/chart: valkey-0.9.4
   name: renovate-cache-valkey
 spec:
   replicas: 1
@@ -19,7 +19,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/initconfig: aab4643482e47faefef849dcd48bf9a5
+        checksum/initconfig: 0347152e72ce3a8b6a64cf23c6a583a5
       labels:
         app.kubernetes.io/instance: renovate-cache
         app.kubernetes.io/name: valkey
@@ -48,6 +48,7 @@ spec:
               protocol: TCP
           resources: {}
           securityContext:
+            allowPrivilegeEscalation: false
             capabilities:
               drop:
                 - ALL
@@ -70,6 +71,7 @@ spec:
           imagePullPolicy: IfNotPresent
           name: renovate-cache-valkey-init
           securityContext:
+            allowPrivilegeEscalation: false
             capabilities:
               drop:
                 - ALL
@@ -85,6 +87,8 @@ spec:
         fsGroup: 1000
         runAsGroup: 1000
         runAsUser: 1000
+        seccompProfile:
+          type: RuntimeDefault
       serviceAccountName: renovate-cache-valkey
       volumes:
         - configMap:

@@ -5,8 +5,8 @@ metadata:
     app.kubernetes.io/instance: renovate
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: renovate
-    app.kubernetes.io/version: 43.136.1
-    helm.sh/chart: renovate-46.125.1
+    app.kubernetes.io/version: 43.136.3
+    helm.sh/chart: renovate-46.125.3
   name: renovate
   namespace: syn-renovate
 spec:
@@ -27,7 +27,7 @@ spec:
                 - name: RENOVATE_CONFIG_FILE
                   value: /usr/src/app/config.json
               envFrom: null
-              image: ghcr.io/renovatebot/renovate:43.136.1
+              image: ghcr.io/renovatebot/renovate:43.136.3
               imagePullPolicy: IfNotPresent
               name: renovate
               volumeMounts:

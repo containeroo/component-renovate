@@ -11,7 +11,7 @@ metadata:
     app.kubernetes.io/instance: valkey
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: renovate
-    app.kubernetes.io/version: 43.141.6
-    helm.sh/chart: renovate-46.130.6
+    app.kubernetes.io/version: 43.144.0
+    helm.sh/chart: renovate-46.133.0
   name: valkey-renovate-config
   namespace: syn-valkey

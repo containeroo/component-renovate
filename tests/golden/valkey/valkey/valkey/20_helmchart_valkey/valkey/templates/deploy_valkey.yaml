@@ -5,7 +5,7 @@ metadata:
     app.kubernetes.io/instance: renovate-cache
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: valkey
-    app.kubernetes.io/version: 9.0.4
+    app.kubernetes.io/version: 9.1.0
     helm.sh/chart: valkey-0.9.4
   name: renovate-cache-valkey
 spec:
@@ -19,7 +19,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/initconfig: 7fdca9ff6a081edac6daac527ad7eb5c
+        checksum/initconfig: e6cb3edfb49a29e040c2c6aa711e36d7
       labels:
         app.kubernetes.io/instance: renovate-cache
         app.kubernetes.io/name: valkey
@@ -33,7 +33,7 @@ spec:
           env:
             - name: VALKEY_LOGLEVEL
               value: notice
-          image: docker.io/valkey/valkey:9.0.4
+          image: docker.io/valkey/valkey:9.1.0
           imagePullPolicy: IfNotPresent
           livenessProbe:
             exec:
@@ -67,7 +67,7 @@ spec:
       initContainers:
         - command:
             - /scripts/init.sh
-          image: docker.io/valkey/valkey:9.0.4
+          image: docker.io/valkey/valkey:9.1.0
           imagePullPolicy: IfNotPresent
           name: renovate-cache-valkey-init
           securityContext:

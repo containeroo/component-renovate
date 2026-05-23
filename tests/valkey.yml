@@ -1,6 +1,9 @@
 ---
 parameters:
   renovate:
+    charts:
+      renovate:
+        version: 46.168.0
     images:
       valkey:
         version: 9.0.0

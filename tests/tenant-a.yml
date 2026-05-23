@@ -5,6 +5,9 @@ applications:
 parameters:
   tenant_a:
     namespace: syn-renovate-tenant-a
+    charts:
+      renovate:
+        version: 46.168.0
     helm_values:
       cronjob:
         suspend: true

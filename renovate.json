@@ -1,61 +1,13 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:recommended"
-  ],
-  "ignorePaths": [
-    ".github/**"
-  ],
-  "labels": [
-    "dependency"
-  ],
-  "timezone": "Europe/Zurich",
-  "schedule": [
-    "after 2am and before 3am"
-  ],
-  "updateNotScheduled": false,
-  "packageRules": [
-    {
-      "matchUpdateTypes": [
-        "patch"
-      ],
-      "addLabels": [
-        "bump:patch"
-      ],
-      "automerge": true
-    },
-    {
-      "matchUpdateTypes": [
-        "minor"
-      ],
-      "addLabels": [
-        "bump:minor"
-      ],
-      "automerge": true
-    },
-    {
-      "matchUpdateTypes": [
-        "major"
-      ],
-      "addLabels": [
-        "bump:major"
-      ],
-      "assignees": [
-        "rxbn"
-      ]
-    }
-  ],
+  "extends": ["config:recommended"],
+  "ignorePaths": [".github/**", "tests/**"],
+  "labels": ["dependency"],
   "separateMinorPatch": true,
-  "suppressNotifications": [
-    "artifactErrors"
-  ],
+  "suppressNotifications": ["artifactErrors"],
   "postUpgradeTasks": {
-    "commands": [
-      "make gen-golden-all"
-    ],
-    "fileFilters": [
-      "tests/golden/**"
-    ],
+    "commands": ["make gen-golden-all"],
+    "fileFilters": ["tests/golden/**"],
     "executionMode": "update"
   }
 }

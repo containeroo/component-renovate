@@ -47,16 +47,18 @@ Includes `registry`, `repository`, and `tag`.
 [horizontal]
 type:: dictionary
 
-Dictionary containing the chart versions used by this component.
+Dictionary containing the chart sources and versions used by this component.
 
 
 == `charts.renovate.version`
 
 [horizontal]
-type:: string
-default:: See https://github.com/containeroo/component-renovate/blob/master/class/defaults.yml[class/defaults.yml]
+type:: string|null
+default:: `null`
 
-The Helm chart version used for this component.
+Optional Renovate Helm chart version.
+By default, the component doesn't pin the chart version.
+Set this parameter in cluster inventory if you need to pin the chart.
 
 
 == `charts.renovate.source`

@@ -3,6 +3,9 @@
 
 parameters:
   renovate:
+    charts:
+      renovate:
+        version: 46.168.0
     helm_values:
       cronjob:
         suspend: true

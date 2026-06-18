@@ -6,7 +6,7 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: valkey
     app.kubernetes.io/version: 9.1.0
-    helm.sh/chart: valkey-0.9.4
+    helm.sh/chart: valkey-0.10.0
   name: renovate-cache-valkey
 spec:
   replicas: 1
@@ -19,7 +19,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/initconfig: e6cb3edfb49a29e040c2c6aa711e36d7
+        checksum/initconfig: 3076462c5ef939f0fc703e8f751bfb87
       labels:
         app.kubernetes.io/instance: renovate-cache
         app.kubernetes.io/name: valkey
